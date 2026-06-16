@@ -91,32 +91,7 @@ body {
   }
 }
 
-@keyframes detail-loading-orbit {
-  0%,
-  100% {
-    transform: rotate(-13deg) scale(1);
-  }
-
-  50% {
-    transform: rotate(-6deg) scale(1.04);
-  }
-}
-
-@keyframes detail-loading-pill {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-1deg);
-  }
-
-  50% {
-    transform: translateY(-5px) rotate(1deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .detail-loading,
-  .detail-loading::before,
-  .detail-loading span,
   .click-effect-layer,
   .click-effect-burst {
     animation: none;
@@ -390,115 +365,6 @@ body[data-detail-nav-gradient] .detail-nav-link-home:focus-visible {
   width: 100vw;
 }
 
-.detail-loading {
-  position: fixed;
-  inset: 0;
-  z-index: 8;
-  display: grid;
-  place-items: center;
-  padding: 96px 24px 24px;
-  background:
-    radial-gradient(circle at 34% 34%, rgba(43, 167, 255, 0.12) 0 92px, transparent 94px),
-    radial-gradient(circle at 66% 58%, rgba(185, 55, 46, 0.1) 0 132px, transparent 134px),
-    linear-gradient(rgba(143, 129, 116, 0.14) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 129, 116, 0.1) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(var(--detail-header-bg-rgb), 0.99), rgba(var(--detail-header-bg-rgb), 0.92));
-  background-size: auto, auto, 38px 38px, 38px 38px, auto;
-  color: var(--detail-muted);
-  pointer-events: none;
-  transition: opacity 0.42s ease, visibility 0.42s ease, transform 0.42s ease;
-}
-
-.detail-loading::before,
-.detail-loading::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
-
-.detail-loading::before {
-  width: min(64vw, 360px);
-  height: min(64vw, 360px);
-  border: 3px solid rgba(185, 55, 46, 0.24);
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-  border-radius: 48% 52% 46% 54%;
-  transform: rotate(-13deg);
-  animation: detail-loading-orbit 3.2s ease-in-out infinite;
-}
-
-.detail-loading::after {
-  width: min(56vw, 300px);
-  height: 28px;
-  margin-top: 116px;
-  border-bottom: 4px solid rgba(43, 167, 255, 0.2);
-  border-radius: 50%;
-  transform: rotate(-2deg);
-}
-
-.detail-loading span {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 136px;
-  min-height: 48px;
-  padding: 12px 22px;
-  border: 2px solid rgba(47, 38, 33, 0.56);
-  border-radius: 999px 999px 999px 28px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.78), transparent 48%),
-    rgba(250, 249, 246, 0.9);
-  color: var(--detail-ink);
-  box-shadow:
-    0 18px 38px rgba(47, 38, 33, 0.1),
-    5px 5px 0 rgba(43, 167, 255, 0.13);
-  font-size: 0.96rem;
-  font-weight: 600;
-  animation: detail-loading-pill 1.36s ease-in-out infinite;
-}
-
-.detail-loading-dark {
-  background:
-    radial-gradient(circle at 36% 35%, rgba(72, 166, 255, 0.18) 0 112px, transparent 114px),
-    radial-gradient(circle at 68% 62%, rgba(255, 255, 255, 0.08) 0 148px, transparent 150px),
-    linear-gradient(rgba(244, 248, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(244, 248, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(0, 9, 22, 0.99), rgba(0, 9, 22, 0.92));
-}
-
-.detail-loading-dark::before {
-  border-color: rgba(72, 166, 255, 0.32);
-  border-right-color: transparent;
-  border-bottom-color: transparent;
-}
-
-.detail-loading-dark::after {
-  border-bottom-color: rgba(244, 248, 255, 0.16);
-}
-
-.detail-loading-dark span {
-  border-color: rgba(244, 248, 255, 0.42);
-  background:
-    linear-gradient(135deg, rgba(72, 166, 255, 0.18), transparent 48%),
-    rgba(0, 9, 22, 0.76);
-  color: #f4f8ff;
-  box-shadow:
-    0 18px 42px rgba(0, 0, 0, 0.32),
-    5px 5px 0 rgba(72, 166, 255, 0.17);
-}
-
-.detail-loading[hidden] {
-  display: none;
-}
-
-.detail-loading.is-hidden {
-  opacity: 0;
-  visibility: hidden;
-  transform: scale(1.01);
-}
-
 .detail-image {
   display: block;
   width: 100vw;
@@ -547,17 +413,6 @@ body[data-detail-nav-gradient] .detail-nav-link-home:focus-visible {
 }
 
 @media (max-width: 720px) {
-  .detail-loading {
-    padding: 120px 20px 28px;
-  }
-
-  .detail-loading span {
-    min-width: 124px;
-    min-height: 44px;
-    padding: 10px 18px;
-    font-size: 0.9rem;
-  }
-
   .detail-nav {
     grid-template-columns: 1fr;
     padding: 12px 16px;

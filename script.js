@@ -473,69 +473,6 @@ function initDynamicDetailNavBackground() {
   requestHeaderUpdate();
 }
 
-function initDetailLoadingState() {
-  const loading = document.querySelector(".detail-loading");
-  const detailResource = document.querySelector(".detail-image, .detail-object, .detail-slice-image");
-
-  if (!loading || !detailResource) {
-    return;
-  }
-
-  const startedAt = Date.now();
-  const showDelay = 450;
-  const minimumVisibleTime = 420;
-  const maximumVisibleTime = 5200;
-  let isDone = false;
-  let isVisible = false;
-  let showTimer = 0;
-  let maximumTimer = 0;
-
-  function showLoading() {
-    if (isDone || isVisible) {
-      return;
-    }
-
-    isVisible = true;
-    loading.hidden = false;
-  }
-
-  function hideLoading() {
-    if (isDone) {
-      return;
-    }
-
-    isDone = true;
-    window.clearTimeout(showTimer);
-    window.clearTimeout(maximumTimer);
-
-    if (!isVisible) {
-      loading.remove();
-      return;
-    }
-
-    const elapsed = Date.now() - startedAt;
-    const waitTime = Math.max(0, minimumVisibleTime - elapsed);
-
-    window.setTimeout(() => {
-      loading.classList.add("is-hidden");
-      loading.addEventListener("transitionend", () => {
-        loading.remove();
-      }, { once: true });
-    }, waitTime);
-  }
-
-  if (detailResource instanceof HTMLImageElement && detailResource.complete) {
-    hideLoading();
-    return;
-  }
-
-  showTimer = window.setTimeout(showLoading, showDelay);
-  maximumTimer = window.setTimeout(hideLoading, maximumVisibleTime);
-
-  detailResource.addEventListener("load", hideLoading, { once: true });
-  detailResource.addEventListener("error", hideLoading, { once: true });
-}
-
 function setActiveNav(key) {
   navLinks.forEach((link) => {
     const isActive = link.dataset.nav === key;
@@ -675,7 +612,6 @@ initGlobalClickEffect();
 initLockedProjectStatus();
 syncDetailObjectAspectRatio();
 initDynamicDetailNavBackground();
-initDetailLoadingState();
 
 revealItems.forEach((item, index) => {
   item.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
