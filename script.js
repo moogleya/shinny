@@ -4,6 +4,114 @@ const sectionMap = {
   about: "about",
 };
 
+function initSiteLoading() {
+  const loadingLayer = document.querySelector(".site-loading");
+  const progressBar = loadingLayer?.querySelector(".site-loading-track");
+
+  if (!loadingLayer || loadingLayer.hidden) {
+    return;
+  }
+
+  const startedAt = Date.now();
+  const minimumVisibleTime = 520;
+  const maximumVisibleTime = 3600;
+  let progress = 0;
+  let loadingComplete = false;
+
+  document.body.classList.add("is-loading");
+
+  function setProgress(value) {
+    progress = Math.max(progress, Math.min(value, 100));
+    loadingLayer.style.setProperty("--loading-progress", `${progress}%`);
+
+    if (progressBar) {
+      progressBar.setAttribute("aria-valuenow", String(Math.round(progress)));
+    }
+  }
+
+  const progressTimer = window.setInterval(() => {
+    if (loadingComplete) {
+      return;
+    }
+
+    const nextProgress = progress + Math.max(2, (88 - progress) * 0.12);
+    setProgress(Math.min(nextProgress, 88));
+  }, 130);
+
+  function waitForImage(image) {
+    if (image.complete && image.naturalWidth > 0) {
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      image.addEventListener("load", resolve, { once: true });
+      image.addEventListener("error", resolve, { once: true });
+    });
+  }
+
+  function waitForObject(objectElement) {
+    if (objectElement.contentDocument?.documentElement) {
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      objectElement.addEventListener("load", resolve, { once: true });
+      objectElement.addEventListener("error", resolve, { once: true });
+      window.setTimeout(resolve, 1800);
+    });
+  }
+
+  function waitForMainResources() {
+    const criticalResources = Array.from(
+      document.querySelectorAll(".topbar img, .hero img, .hero object")
+    );
+
+    const resourcePromises = criticalResources.map((resource) => {
+      if (resource instanceof HTMLImageElement) {
+        return waitForImage(resource);
+      }
+
+      if (resource instanceof HTMLObjectElement) {
+        return waitForObject(resource);
+      }
+
+      return Promise.resolve();
+    });
+
+    if (document.fonts?.ready) {
+      resourcePromises.push(document.fonts.ready.catch(() => {}));
+    }
+
+    return Promise.allSettled(resourcePromises);
+  }
+
+  function hideLoading() {
+    if (loadingComplete) {
+      return;
+    }
+
+    loadingComplete = true;
+    window.clearInterval(progressTimer);
+    setProgress(100);
+
+    const elapsed = Date.now() - startedAt;
+    const waitTime = Math.max(0, minimumVisibleTime - elapsed);
+
+    window.setTimeout(() => {
+      loadingLayer.classList.add("is-hiding");
+      document.body.classList.remove("is-loading");
+      loadingLayer.addEventListener("transitionend", () => {
+        loadingLayer.remove();
+      }, { once: true });
+    }, waitTime);
+  }
+
+  waitForMainResources().then(hideLoading);
+  window.setTimeout(hideLoading, maximumVisibleTime);
+}
+
+initSiteLoading();
+
 const CLICK_EFFECT_DEFAULT_COLOR = "#b9372e";
 const CLICK_EFFECT_FALLBACK_COLOR = "#b8b8b8";
 const CLICK_EFFECT_CONFLICT_RGB = [185, 55, 46];

@@ -7,9 +7,23 @@
     <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="./styles.css?v=20260615-rabbit-fit" />
+    <link rel="stylesheet" href="./styles.css?v=20260616-loading" />
   </head>
   <body>
+    <div
+      class="site-loading"
+      hidden
+      role="status"
+      aria-live="polite"
+      aria-label="正在进入Shinny的作品集"
+    >
+      <div class="site-loading-card">
+        <p class="site-loading-text">正在进入Shinny的作品集</p>
+        <div class="site-loading-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span class="site-loading-bar"></span>
+        </div>
+      </div>
+    </div>
     <div class="page-shell">
       <header class="topbar">
         <a class="brand" href="#hero">
@@ -511,14 +525,6 @@
                   </span>
                   <span>作为我设计上的朋友</span>
                 </p>
-                <p class="acknowledgement-line acknowledgement-line-5">
-                  <span>感谢</span>
-                  <span class="acknowledgement-name">
-                    <img src="./assets/friend-dengkai-photo.png" alt="" class="acknowledgement-avatar" aria-hidden="true" />
-                    <span>Dengkai</span>
-                  </span>
-                  <span>的技术支持</span>
-                </p>
                 <p class="acknowledgement-line acknowledgement-line-6">
                   <span>感谢</span>
                   <span class="acknowledgement-name">
@@ -547,6 +553,6 @@
       </main>
     </div>
 
-    <script src="./script.js?v=20260615-rabbit-hop"></script>
+    <script src="./script.js?v=20260616-loading"></script>
   </body>
 </html>
