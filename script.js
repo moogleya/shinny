@@ -143,8 +143,12 @@ initSiteLoading();
 
 const CLICK_EFFECT_DEFAULT_COLOR = "#b9372e";
 const CLICK_EFFECT_FALLBACK_COLOR = "#b8b8b8";
-const CLICK_EFFECT_CONFLICT_RGB = [185, 55, 46];
+const CLICK_EFFECT_CONFLICT_RGBS = [
+  [183, 65, 53],
+  [185, 55, 46],
+];
 const CLICK_EFFECT_IMAGE_TOLERANCE = 18;
+const CLICK_EFFECT_NAV_DELAY = 240;
 const CLICK_EFFECT_COLOR_PROPS = [
   "backgroundColor",
   "color",
@@ -158,8 +162,13 @@ const CLICK_EFFECT_COLOR_PROPS = [
   "stroke",
 ];
 const CLICK_EFFECT_RED_IMAGE_MARKERS = [
+  "projects-button.svg",
+  "tab-active.svg",
+  "tab-wide-active.svg",
   "nav-tab-active.svg",
   "nav-tab-wide-active.svg",
+  "nav-fill.svg",
+  "home-hover.svg",
   "detail-nav-fill.svg",
   "detail-home-hover.svg",
   "wx.svg",
@@ -220,7 +229,9 @@ function isConflictClickColor(value) {
     return false;
   }
 
-  return channels.every((channel, index) => channel === CLICK_EFFECT_CONFLICT_RGB[index]);
+  return CLICK_EFFECT_CONFLICT_RGBS.some((conflictChannels) => {
+    return channels.every((channel, index) => channel === conflictChannels[index]);
+  });
 }
 
 function isNearConflictClickColor(channels) {
@@ -228,8 +239,10 @@ function isNearConflictClickColor(channels) {
     return false;
   }
 
-  return channels.slice(0, 3).every((channel, index) => {
-    return Math.abs(channel - CLICK_EFFECT_CONFLICT_RGB[index]) <= CLICK_EFFECT_IMAGE_TOLERANCE;
+  return CLICK_EFFECT_CONFLICT_RGBS.some((conflictChannels) => {
+    return channels.slice(0, 3).every((channel, index) => {
+      return Math.abs(channel - conflictChannels[index]) <= CLICK_EFFECT_IMAGE_TOLERANCE;
+    });
   });
 }
 
@@ -240,6 +253,16 @@ function hasConflictBackgroundImage(value) {
 
   const normalized = value.toLowerCase();
   return CLICK_EFFECT_RED_IMAGE_MARKERS.some((marker) => normalized.includes(marker));
+}
+
+function hasConflictImageSource(image) {
+  const source = `${image.currentSrc || ""} ${image.src || ""}`.toLowerCase();
+  return CLICK_EFFECT_RED_IMAGE_MARKERS.some((marker) => source.includes(marker));
+}
+
+function containsPoint(element, clientX, clientY) {
+  const rect = element.getBoundingClientRect();
+  return clientX >= rect.left && clientX <= rect.right && clientY >= rect.top && clientY <= rect.bottom;
 }
 
 function hasConflictVisualStyle(node, pseudoElement = null) {
@@ -305,7 +328,15 @@ function shouldUseFallbackClickColor(target, event) {
       return true;
     }
 
-    if (node instanceof HTMLImageElement && sampleImageConflictAtPoint(node, event.clientX, event.clientY)) {
+    if (node instanceof HTMLImageElement && (hasConflictImageSource(node) || sampleImageConflictAtPoint(node, event.clientX, event.clientY))) {
+      return true;
+    }
+
+    const childImages = Array.from(node.querySelectorAll("img"));
+    if (childImages.some((image) => {
+      return containsPoint(image, event.clientX, event.clientY)
+        && (hasConflictImageSource(image) || sampleImageConflictAtPoint(image, event.clientX, event.clientY));
+    })) {
       return true;
     }
 
@@ -587,6 +618,31 @@ function initGlobalClickEffect() {
     burst.addEventListener("animationend", () => {
       burst.remove();
     }, { once: true });
+  });
+
+  document.addEventListener("click", (event) => {
+    const link = event.target instanceof Element
+      ? event.target.closest(".project-action[href], .detail-nav-link[href]")
+      : null;
+
+    if (
+      !link
+      || event.defaultPrevented
+      || event.button !== 0
+      || event.metaKey
+      || event.ctrlKey
+      || event.shiftKey
+      || event.altKey
+      || link.target && link.target !== "_self"
+      || link.hasAttribute("download")
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    window.setTimeout(() => {
+      window.location.href = link.href;
+    }, CLICK_EFFECT_NAV_DELAY);
   });
 }
 
