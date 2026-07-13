@@ -1,14 +1,4 @@
 @font-face {
-  font-family: "FZLanTingYuanGBK-regular";
-  src: local("FZLanTingYuanGBK Regular"), local("FZLanTingYuanGBK-Regular"),
-    local("FZLanTingYuanGBKRegular"), local("FZLanTingYuanS-R-GB"),
-    url("./assets/fonts/FZLanTingYuanGBK-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "FZLanTingYuanGBK";
   src: local("FZLanTingYuanGBK SemiBold"), local("FZLanTingYuanGBK-SemiBold"),
     local("FZLanTingYuanGBK--S10"), local("FZLanTingYuanS-DB1-GB"),
@@ -855,7 +845,7 @@ main::after,
 .project-description {
   margin: 27.5px 0 0;
   color: var(--muted);
-  font-family: "FZLanTingYuanGBK-regular", var(--font-main);
+  font-family: var(--font-main);
   font-size: 1.089rem;
   font-weight: 400;
   font-synthesis-weight: none;
