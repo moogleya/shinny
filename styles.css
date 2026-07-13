@@ -554,7 +554,7 @@ main::after,
   width: min(calc(100% - var(--page-gutter)), var(--max-width));
   max-width: var(--max-width);
   padding-top: 28px;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
   background: transparent;
   --projects-content-line-offset: 0px;
   --project-copy-mobile-max: 560px;
@@ -579,7 +579,7 @@ main::after,
   align-items: center;
   column-gap: clamp(40px, 4.8vw, 92px);
   row-gap: clamp(256px, 14vw, 304px);
-  padding: clamp(12px, 2vw, 24px) 0 clamp(48px, 4.5vw, 88px);
+  padding: clamp(12px, 2vw, 24px) 0 clamp(96px, 9vw, 176px);
 }
 
 .project-panel {
@@ -1487,6 +1487,7 @@ main::after,
 
 .about {
   position: relative;
+  padding-top: 176px;
 }
 
 .about-rabbit-scene {
@@ -2471,7 +2472,7 @@ main::after,
   .projects-showcase {
     grid-template-columns: 1fr;
     gap: 64px;
-    padding: 42px var(--page-gutter-mobile) 82px;
+    padding: 42px var(--page-gutter-mobile) 164px;
   }
 
   .project-panel-copy-emotion {
@@ -2854,6 +2855,10 @@ main::after,
 
   .section {
     padding-top: 72px;
+  }
+
+  .about {
+    padding-top: 144px;
   }
 
   .hero {
