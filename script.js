@@ -162,6 +162,7 @@ const CLICK_EFFECT_RED_IMAGE_MARKERS = [
   "nav-tab-wide-active.svg",
   "detail-nav-fill.svg",
   "detail-home-hover.svg",
+  "wx.svg",
 ];
 
 const navLinks = Array.from(document.querySelectorAll(".nav-link"));
@@ -608,8 +609,71 @@ function initLockedProjectStatus() {
   });
 }
 
+function copyTextWithFallback(text) {
+  if (navigator.clipboard?.writeText) {
+    return navigator.clipboard.writeText(text).catch(() => legacyCopyText(text));
+  }
+
+  return legacyCopyText(text);
+}
+
+function legacyCopyText(text) {
+  return new Promise((resolve, reject) => {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.left = "-9999px";
+    textarea.style.top = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+
+    try {
+      if (document.execCommand("copy")) {
+        resolve();
+      } else {
+        reject(new Error("Copy command was not accepted."));
+      }
+    } catch (error) {
+      reject(error);
+    } finally {
+      textarea.remove();
+    }
+  });
+}
+
+function initWechatCopyToast() {
+  const button = document.querySelector(".acknowledgement-wx-copy");
+  const toast = document.querySelector(".copy-toast");
+
+  if (!button || !toast) {
+    return;
+  }
+
+  let toastTimer = 0;
+
+  function showToast() {
+    window.clearTimeout(toastTimer);
+    toast.classList.add("is-visible");
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove("is-visible");
+    }, 1500);
+  }
+
+  button.addEventListener("click", () => {
+    const text = button.dataset.copyText || "";
+
+    if (!text) {
+      return;
+    }
+
+    copyTextWithFallback(text).then(showToast).catch(showToast);
+  });
+}
+
 initGlobalClickEffect();
 initLockedProjectStatus();
+initWechatCopyToast();
 syncDetailObjectAspectRatio();
 initDynamicDetailNavBackground();
 
