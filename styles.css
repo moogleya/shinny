@@ -880,6 +880,10 @@ main::after,
   font-size: 1.08rem;
 }
 
+.about-intro p {
+  color: var(--muted);
+}
+
 .hero-tags,
 .project-tags {
   display: flex;
