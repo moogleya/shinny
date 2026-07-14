@@ -1,14 +1,4 @@
 @font-face {
-  font-family: "FZLanTingYuanGBK-regular";
-  src: local("FZLanTingYuanGBK Regular"), local("FZLanTingYuanGBK-Regular"),
-    local("FZLanTingYuanGBKRegular"), local("FZLanTingYuanS-R-GB"),
-    url("./assets/fonts/FZLanTingYuanGBK-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "FZLanTingYuanGBK";
   src: local("FZLanTingYuanGBK SemiBold"), local("FZLanTingYuanGBK-SemiBold"),
     local("FZLanTingYuanGBK--S10"), local("FZLanTingYuanS-DB1-GB"),
@@ -855,7 +845,7 @@ main::after,
 .project-description {
   margin: 27.5px 0 0;
   color: var(--muted);
-  font-family: "FZLanTingYuanGBK-regular", var(--font-main);
+  font-family: var(--font-main);
   font-size: 1.089rem;
   font-weight: 400;
   font-synthesis-weight: none;
@@ -884,12 +874,6 @@ main::after,
 .hero-text,
 .section-head p,
 .about-intro p,
-.workflow-step p,
-.quotes-list blockquote {
-  color: var(--muted);
-  line-height: 1.8;
-}
-
 .hero-text {
   max-width: 560px;
   margin: 22px 0 0;
@@ -1045,437 +1029,6 @@ main::after,
 .section-head p {
   margin-top: 16px;
   font-size: 1.02rem;
-}
-
-.design-story-head.is-hidden {
-  display: none;
-}
-
-.panel-head h3,
-.about-intro h3 {
-  margin: 0;
-  font-size: 2.35rem;
-  letter-spacing: -0.04em;
-  font-weight: 600;
-}
-
-.panel-head span {
-  margin: 12px 0 0;
-  color: var(--muted);
-}
-
-.design-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-.panel,
-.about-card {
-  padding: 24px;
-  border: var(--border-strong) solid var(--line);
-  border-radius: 28px;
-  background: var(--bg);
-}
-
-@keyframes folder-cover-settle {
-  0% {
-    opacity: 0;
-    transform: translateY(16px) scale(0.98);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.panel-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 18px;
-}
-
-.radar-chart {
-  width: 100%;
-  max-width: 520px;
-  display: block;
-  margin: 0 auto;
-}
-
-.radar-grid,
-.radar-axis {
-  fill: none;
-  stroke: #d7d1ca;
-  stroke-width: 2;
-}
-
-.radar-grid.outer {
-  stroke: var(--line-dark);
-}
-
-.radar-shape {
-  fill: rgba(43, 167, 255, 0.12);
-  stroke: var(--accent);
-  stroke-width: 3;
-  stroke-linejoin: round;
-}
-
-.radar-dot {
-  fill: var(--bg);
-  stroke: var(--accent);
-  stroke-width: 3;
-}
-
-.radar-chart text {
-  text-anchor: middle;
-  fill: var(--muted);
-  font-size: 13px;
-}
-
-.tool-logo-grid {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.tool-logo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  min-height: 164px;
-  padding: 18px 10px 10px;
-  transition: transform 0.24s ease;
-}
-
-.tool-logo-card:hover,
-.tool-logo-card:focus-within {
-  transform: translateY(-4px);
-}
-
-.tool-logo-image {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
-  filter: drop-shadow(0 9px 16px rgba(47, 38, 33, 0.14));
-  transition: filter 0.24s ease, transform 0.24s ease;
-}
-
-.tool-logo-card:hover .tool-logo-image,
-.tool-logo-card:focus-within .tool-logo-image {
-  transform: translate(-2px, -3px) scale(1.06);
-  filter: drop-shadow(0 16px 28px rgba(47, 38, 33, 0.26));
-}
-
-.tool-logo-name {
-  font-size: 0.98rem;
-  line-height: 1.4;
-  text-align: center;
-  color: var(--ink);
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  pointer-events: none;
-}
-
-.tool-logo-card:hover .tool-logo-name,
-.tool-logo-card:focus-within .tool-logo-name {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.workflow-list,
-.quotes-list {
-  display: grid;
-  gap: 14px;
-}
-
-.workflow-step,
-.quotes-list blockquote {
-  padding: 16px 18px;
-  border: var(--border-strong) solid var(--line);
-  border-radius: 20px;
-  margin: 0;
-}
-
-.workflow-step strong {
-  display: block;
-  margin-bottom: 8px;
-}
-
-.workflow-flow {
-  --flow-theme: #b9372e;
-  --flow-theme-soft: rgba(185, 55, 46, 0.1);
-  --flow-theme-soft-strong: rgba(185, 55, 46, 0.14);
-  padding-top: 10px;
-}
-
-.workflow-flow-title {
-  margin: 0 auto 22px;
-  text-align: center;
-}
-
-.workflow-flow-title p {
-  max-width: 520px;
-  margin: 0 auto;
-  color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.7;
-}
-
-.workflow-flow-scroll {
-  overflow-x: auto;
-  padding: 8px 2px 16px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(47, 38, 33, 0.28) transparent;
-}
-
-.workflow-flow-scroll::-webkit-scrollbar {
-  height: 8px;
-}
-
-.workflow-flow-scroll::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: rgba(47, 38, 33, 0.24);
-}
-
-.workflow-flow-track {
-  display: grid;
-  grid-template-columns:
-    minmax(156px, 1fr) 42px minmax(156px, 1fr) 42px minmax(156px, 1fr)
-    46px minmax(156px, 1fr) 42px minmax(156px, 1fr);
-  align-items: center;
-  min-width: 960px;
-}
-
-.flow-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 314px;
-  padding: 44px 17px 24px;
-  border: 2px solid rgba(212, 206, 198, 0.72);
-  border-radius: 22px;
-  background: rgba(255, 250, 242, 0.78);
-  text-align: center;
-  box-shadow: 0 14px 30px rgba(47, 38, 33, 0.08);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-}
-
-.flow-card:hover {
-  border-color: var(--flow-theme);
-  box-shadow: 0 20px 38px rgba(47, 38, 33, 0.12);
-  transform: translateY(-3px);
-}
-
-.flow-card-focus {
-  border-color: rgba(43, 167, 255, 0.46);
-  background: #f2f9ff;
-}
-
-.flow-index {
-  position: absolute;
-  top: -15px;
-  left: 22px;
-  display: inline-grid;
-  place-items: center;
-  min-width: 44px;
-  height: 30px;
-  padding: 0 10px;
-  border-radius: 999px;
-  background: var(--flow-theme);
-  color: #ffffff;
-  font-size: 0.9rem;
-  line-height: 1;
-  box-shadow: 0 8px 16px rgba(185, 55, 46, 0.2);
-}
-
-.flow-icon {
-  display: grid;
-  place-items: center;
-  width: 74px;
-  height: 74px;
-  margin-bottom: 20px;
-  border-radius: 20px;
-  background: var(--flow-theme-soft);
-  color: var(--flow-theme);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1;
-}
-
-.flow-card-focus .flow-icon {
-  border: 2px dashed rgba(43, 167, 255, 0.6);
-  background: #ffffff;
-  color: var(--accent);
-}
-
-.flow-icon svg {
-  width: 72px;
-  height: 72px;
-  overflow: visible;
-}
-
-.flow-icon svg path,
-.flow-icon svg circle {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 4.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.flow-icon img {
-  display: block;
-  width: 56px;
-  height: 56px;
-  object-fit: contain;
-}
-
-.flow-icon-doodle {
-  background: var(--flow-theme-soft);
-  color: var(--flow-theme);
-}
-
-.flow-icon-tools {
-  position: relative;
-  display: block;
-  background: transparent;
-}
-
-.flow-icon-tools img {
-  position: absolute;
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
-  filter: drop-shadow(0 10px 16px rgba(47, 38, 33, 0.14));
-}
-
-.flow-icon-tools img:first-child {
-  left: 2px;
-  top: 5px;
-  transform: rotate(-8deg);
-}
-
-.flow-icon-tools img:last-child {
-  right: 2px;
-  bottom: 2px;
-  transform: rotate(8deg);
-}
-
-.flow-icon-figma {
-  background: #ffffff;
-}
-
-.flow-icon-figma img {
-  width: 62px;
-  height: 62px;
-  filter: drop-shadow(0 10px 16px rgba(47, 38, 33, 0.12));
-}
-
-.flow-card h4 {
-  margin: 0;
-  color: var(--ink);
-  font-size: 1.12rem;
-  line-height: 1.25;
-}
-
-.flow-card p {
-  flex: 1;
-  margin: 14px 0 20px;
-  color: var(--muted);
-  font-size: 0.92rem;
-  font-weight: 400;
-  line-height: 1.72;
-}
-
-.flow-role {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 30px;
-  padding: 6px 13px;
-  border-radius: 999px;
-  background: var(--flow-theme-soft-strong);
-  color: var(--flow-theme);
-  font-size: 0.82rem;
-  line-height: 1;
-}
-
-.flow-card-focus .flow-role {
-  background: var(--accent-soft);
-  color: #167ac0;
-}
-
-.flow-arrow {
-  display: grid;
-  place-items: center;
-  color: var(--flow-theme);
-  font-size: 2.1rem;
-  line-height: 1;
-}
-
-.flow-arrow-two-way {
-  color: #27b878;
-}
-
-.flow-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  width: fit-content;
-  max-width: 100%;
-  margin-top: 16px;
-  padding: 14px 16px;
-  border: 2px dashed rgba(212, 206, 198, 0.9);
-  border-radius: 18px;
-  color: var(--muted);
-  background: rgba(255, 250, 242, 0.62);
-}
-
-.flow-legend span {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.88rem;
-  line-height: 1.2;
-}
-
-.legend-arrow {
-  color: var(--flow-theme);
-  font-size: 1.2rem;
-  font-style: normal;
-  line-height: 1;
-}
-
-.legend-two-way {
-  color: #27b878;
-}
-
-.legend-dot {
-  display: inline-grid;
-  place-items: center;
-  width: 28px;
-  height: 22px;
-  border-radius: 999px;
-  background: var(--flow-theme);
-  color: #ffffff;
-  font-size: 0.74rem;
-  font-style: normal;
-  line-height: 1;
-}
-
-.legend-pill {
-  width: 30px;
-  height: 18px;
-  border-radius: 999px;
-  background: var(--flow-theme-soft-strong);
 }
 
 .about-intro {
@@ -2589,18 +2142,6 @@ main::after,
   .project-panel-copy-work4 .project-tags {
     justify-content: flex-start;
   }
-
-  .design-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .workflow-flow-track {
-    min-width: 900px;
-  }
-
-  .flow-card {
-    min-height: 292px;
-  }
 }
 
 @media (max-width: 700px) {
@@ -2685,8 +2226,7 @@ main::after,
   }
 
   .topbar,
-  .about-intro,
-  .panel-head {
+  .about-intro {
     flex-direction: column;
     align-items: flex-start;
   }
@@ -2719,10 +2259,6 @@ main::after,
   .four-up,
   .about-gallery-kitchen {
     grid-template-columns: 1fr;
-  }
-
-  .tool-logo-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .about-gallery-routine .memory-shot {
@@ -2889,22 +2425,12 @@ main::after,
     width: min(181px, 44vw);
   }
 
-  .panel-head h3,
   .about-intro h3 {
     font-size: 1.95rem;
   }
 
-  .panel {
-    padding: 20px;
-  }
-
   .about-stack {
     gap: 72px;
-  }
-
-  .tool-logo-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px;
   }
 
   .acknowledgements {
@@ -2937,15 +2463,5 @@ main::after,
   .acknowledgement-avatar {
     width: 45px;
     height: 45px;
-  }
-
-  .tool-logo-card {
-    min-height: 148px;
-    padding: 16px 8px 10px;
-  }
-
-  .tool-logo-image {
-    width: 75px;
-    height: 75px;
   }
 }
