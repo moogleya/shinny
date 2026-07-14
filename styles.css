@@ -884,6 +884,13 @@ main::after,
   color: var(--muted);
 }
 
+@media (min-width: 861px) {
+  .about-intro p {
+    max-width: none;
+    white-space: nowrap;
+  }
+}
+
 .hero-tags,
 .project-tags {
   display: flex;
